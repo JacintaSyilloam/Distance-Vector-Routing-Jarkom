@@ -57,7 +57,7 @@ class Graph:
 def main():
     # Create a graph given in the above diagram
     g = Graph(12)
-    g.add_edge('a', 'b', 12)
+    g.add_edge('a', 'b', 4)
     g.add_edge('a', 'e', 10)
     g.add_edge('b', 'c', 13)
     g.add_edge('b', 'f', 2)
