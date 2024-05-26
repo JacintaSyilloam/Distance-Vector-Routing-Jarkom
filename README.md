@@ -14,6 +14,9 @@ Distance vector routing is a type of routing protocol used in computer networks 
 ## Example Usage
 ![image](https://github.com/JacintaSyilloam/Distance-Vector-Routing-Jarkom/assets/121095246/5945d750-1020-44bd-b91e-fc1d50d004f9)
 
+## Routing Table
+![image](https://github.com/JacintaSyilloam/Distance-Vector-Routing-Jarkom/assets/128443451/46a83f1b-c491-4b13-81cf-b438a983248a)
+
 
 ### References
 https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/
