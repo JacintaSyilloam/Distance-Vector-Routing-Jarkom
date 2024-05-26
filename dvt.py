@@ -6,6 +6,7 @@ class Graph:
     # function to add an edge to graph
     def add_edge(self, u, v, w):
         self.edges.append([u, v, w])
+        self.edges.append([v, u, w])
 
     def bellman_ford(self, start, end):
         # Step 1: Initialize distances from src to all other vertices
