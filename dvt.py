@@ -1,51 +1,47 @@
 class Graph:
     def __init__(self, vertices):
-        self.V = vertices  # Number of vertices
-        self.edges = []    # List of edges
+        self.V = vertices  # jumlah node
+        self.edges = []    # List edges
 
-    # function to add an edge to graph
+    # function untuk menambahkan edge ke graph
     def add_edge(self, u, v, w):
         self.edges.append([u, v, w])
         self.edges.append([v, u, w])
 
     def bellman_ford(self, start, end):
-        # Step 1: Initialize distances from src to all other vertices
-        # as INFINITE
+        # Step 1: Inisialisasi jarak dari source ke semua node lainnya sebagai INFINITE
         dist = {chr(97 + i): float("inf") for i in range(self.V)}
         dist[start] = 0
 
-        # Initialize predecessors for path reconstruction
+        # Inisialisasi pendahulunya untuk rekonstruksi jalur
         predecessor = {chr(97 + i): None for i in range(self.V)}
 
-        # Step 2: Relax all edges |V| - 1 times. A simple shortest
-        # path from src to any other vertex can have at-most |V| - 1
-        # edges
+        # Step 2: Relax semua edge |V| - 1 kali.
+        # Jalur terpendek sederhana dari source ke node lain mana pun dapat memiliki paling banyak |V| - 1 edge
         for _ in range(self.V - 1):
-            # Update dist value and parent index of the adjacent vertices of
-            # the picked vertex. Consider only those vertices which are still in
-            # queue
+            # Update jarak dan indeks parent yang berdekatan dari node yang dipilih
+            # Pertimbangkan hanya node yang masih dalam antrian
             for u, v, w in self.edges:
                 if dist[u] != float("inf") and dist[u] + w < dist[v]:
                     dist[v] = dist[u] + w
                     predecessor[v] = u
         
-        # Step 3: check for negative-weight cycles. The above step
-        # guarantees shortest distances if graph doesn't contain
-        # negative weight cycle. If we get a shorter path, then there
-        # is a cycle.
+        # Step 3: Periksa siklus pada bobot negatif.
+        # Langkah di atas menjamin jarak terpendek jika graph tidak mengandung siklus berbobot negatif.
+        # JIka mendapatkan jalur terpendek, maka siklus terjadi
         for u, v, w in self.edges:
             if dist[u] != float("inf") and dist[u] + w < dist[v]:
                 print("Graph contains negative weight cycle")
                 return
 
-        # Print the calculated shortest distance
+        # Print jarak terpendek 
         if dist[end] == float("inf"):
             print(f"No path from {start} to {end}")
         else:
             print(f"\033[96mShortest distance from {start} to {end} is {dist[end]}\033[0m")
             self.print_path(predecessor, start, end)
 
-    # utility function used to print the solution
+    # utility function untuk print jalur yang dilalui untuk mendapatkan jalur terpendek
     def print_path(self, predecessor, start, end):
         path = []
         current = end
@@ -56,7 +52,7 @@ class Graph:
         print("Path taken:", " -> ".join(path))
 
 def main():
-    # Create a graph given in the above diagram
+    # Buat graph sesuai dengan diagram yang dibuat
     g = Graph(12)
     g.add_edge('a', 'b', 4)
     g.add_edge('a', 'e', 10)
@@ -78,17 +74,17 @@ def main():
     g.add_edge('j', 'k', 3)
     g.add_edge('k', 'l', 11)
 
-    # Take user input for start and end nodes
+    # Ambil input user untuk start dan end node
     print("\033[46mDistance Vector Routing\033[0m")
     start = input("Enter start node: ").strip()
     end = input("Enter end node: ").strip()
 
-    # Check if the input nodes are valid
+    # Cek apabila input user valid
     if start not in 'abcdefghijkl' or end not in 'abcdefghijkl':
         print("Invalid input. Please enter nodes between 'a' and 'l'.")
         return
 
-    # Run Bellman-Ford algorithm
+    # Jalankan Bellman-Ford algorithm
     g.bellman_ford(start, end)
 
 if __name__ == "__main__":
